@@ -10,10 +10,13 @@ var About = (props) => {
       <p>Here are some tools I used:</p>
       <ul>
         <li>
-          <a href="http://facebook.github.io/react">React</a>
+          <a href="http://facebook.github.io/react">React</a> - Front-end framework
         </li>
         <li>
-          <a href="http://openweathermap.org">Open Weather Map</a>
+          <a href="http://openweathermap.org">Open Weather Map</a> - API to fetch weather
+        </li>
+        <li>
+          <a href="http://foundation.zurb.com">Foundation</a> - Front-end framework for styling
         </li>
       </ul>
     </div>
