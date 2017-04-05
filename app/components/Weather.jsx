@@ -2,7 +2,8 @@ var React = require('react');
 var WeatherForm = require('WeatherForm');
 var WeatherMessage = require('WeatherMessage');
 var ErrorModal = require('ErrorModal');
-var openWeatherMap = require('openWeatherMap');
+//var openWeatherMap = require('openWeatherMap');
+var darkSkyWeather = require('darkSkyWeather');
 
 var Weather = React.createClass({
   getInitialState: function () {
@@ -10,7 +11,7 @@ var Weather = React.createClass({
       isLoading: false
     }
   },
-  handleSearch: function (location) {
+  handleSearch: function (location, unit) {
     var that = this;
 
     this.setState({
@@ -20,12 +21,23 @@ var Weather = React.createClass({
       temp: undefined
     });
 
-    openWeatherMap.getTemp(location).then(function (temp) {
+    darkSkyWeather.getTemp(location, unit).then(function (temp) {
+      var u = '';
+
+      if (unit === '°F') {
+        u = '°C';
+      }
+      else {
+        u = '°F';
+      }
+
       that.setState({
         location: location,
         temp: temp,
-        isLoading: false
+        isLoading: false,
+        unit: u
       });
+
     }, function (e) {
       that.setState({
         isLoading: false,
@@ -50,13 +62,13 @@ var Weather = React.createClass({
     }
   },
   render: function () {
-    var {isLoading, temp, location, errorMessage} = this.state;
+    var {isLoading, temp, location, errorMessage, unit} = this.state;
 
     function renderMessage() {
       if (isLoading){
         return <h3 className="text-center">Fetching weather...</h3>;
       } else if (temp && location) {
-        return <WeatherMessage temp={temp} location={location}/>;
+        return <WeatherMessage temp={temp} location={location} unit={unit}/>;
       }
     }
 
@@ -70,7 +82,9 @@ var Weather = React.createClass({
       <div>
         <h1 className="text-center page-title">Get Weather</h1>
         <WeatherForm onSearch={this.handleSearch}/>
-        {renderMessage()}
+        <div className="three">
+          {renderMessage()}
+        </div>
         {renderError()}
       </div>
     )

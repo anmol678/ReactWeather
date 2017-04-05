@@ -6,3 +6,15 @@
 input[type=search] {
   box-shadow: none;
 }
+
+.one{
+  float: left;
+}
+
+.two{
+  float: right;
+}
+
+.three{
+  margin-top: 5rem;
+}

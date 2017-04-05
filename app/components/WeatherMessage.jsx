@@ -1,8 +1,8 @@
 var React = require('react');
 
-var WeatherMessage = ({temp, location}) => {
+var WeatherMessage = ({temp, unit, location}) => {
   return (
-    <h3 className="text-center">It is {temp}°C in {location}.</h3>
+    <h3 className="text-center">It is {temp} {unit} in {location}.</h3>
   );
 };
 

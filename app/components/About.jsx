@@ -13,7 +13,7 @@ var About = (props) => {
           <a href="http://facebook.github.io/react">React</a> - Front-end framework
         </li>
         <li>
-          <a href="http://openweathermap.org">Open Weather Map</a> - API to fetch weather
+          <a href="https://darksky.net/dev/">Dark Sky</a> - API to fetch weather
         </li>
         <li>
           <a href="http://foundation.zurb.com">Foundation</a> - Front-end framework for styling
