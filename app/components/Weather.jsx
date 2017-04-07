@@ -3,12 +3,13 @@ var WeatherForm = require('WeatherForm');
 var WeatherMessage = require('WeatherMessage');
 var ErrorModal = require('ErrorModal');
 var darkSkyWeather = require('darkSkyWeather');
+var googleGeocode = require('googleGeocode');
 var GMap = require('Map');
 
 var Weather = React.createClass({
   getInitialState: function () {
     return {
-      isLoading: false
+      isLoading: false,
     }
   },
   handleSearch: function (location, unit) {
@@ -18,26 +19,33 @@ var Weather = React.createClass({
       isLoading: true,
       errorMessage: undefined,
       location: undefined,
-      temp: undefined
+      temp: undefined,
+      lat: undefined,
+      lng: undefined
     });
 
-    darkSkyWeather.getTemp(location, unit).then(function (temp) {
-      var u = '';
-      if (unit === '°F') {
-        u = '°C';
-      }
-      else {
-        u = '°F';
-      }
+    googleGeocode.getLoc(location).then(function (latLng) {
+      console.log(latLng);
 
-      that.setState({
-        location: location,
-        temp: temp,
-        isLoading: false,
-        unit: u
+      darkSkyWeather.getTemp(latLng, unit).then(function (temp) {
+        var u = '';
+        if (unit === '°F') {
+          u = '°C';
+        }
+        else {
+          u = '°F';
+        }
+
+        that.setState({
+          location: location,
+          temp: temp,
+          isLoading: false,
+          unit: u,
+          lat: latLng.lat,
+          lng: latLng.lng
+        });
       });
-
-    }, function (e) {
+    }).catch(function (err) {
       that.setState({
         isLoading: false,
         errorMessage: e.message
@@ -61,13 +69,18 @@ var Weather = React.createClass({
     }
   },
   render: function () {
-    var {isLoading, temp, location, errorMessage, unit} = this.state;
+    var {isLoading, temp, location, errorMessage, unit, lat, lng} = this.state;
 
     function renderMessage() {
       if (isLoading){
         return <h3 className="text-center">Fetching weather...</h3>;
       } else if (temp && location) {
-        return <WeatherMessage temp={temp} location={location} unit={unit}/>;
+        return (
+          <div>
+            <WeatherMessage temp={temp} location={location} unit={unit}/>
+            <GMap lat={lat} lng={lng}/>
+          </div>
+        );
       }
     }
 
@@ -84,7 +97,6 @@ var Weather = React.createClass({
         <div className="three">
           {renderMessage()}
         </div>
-        <GMap/>
         {renderError()}
       </div>
     )

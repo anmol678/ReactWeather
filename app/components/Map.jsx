@@ -7,8 +7,11 @@ var GMap = React.createClass({
   },
   initMap: function () {
     var map = new google.maps.Map(this.refs.map, {
-      center: {lat: 34.052235, lng: -118.243683},
-      zoom: 8
+      center: {
+        lat: parseFloat(this.props.lat),
+        lng: parseFloat(this.props.lng)
+      },
+      zoom: 10
     });
   },
   render: function () {
