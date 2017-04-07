@@ -29,10 +29,10 @@ module.exports = {
       WeatherMessage: 'app/components/WeatherMessage.jsx',
       About: 'app/components/About.jsx',
       Examples: 'app/components/Examples.jsx',
-      openWeatherMap: 'app/api/openWeatherMap.jsx',
       ErrorModal: 'app/components/ErrorModal.jsx',
       applicationStyles: 'app/styles/app.css',
       darkSkyWeather: 'app/api/darkSkyWeather.jsx',
+      googleGeocode: 'app/api/googleGeocode.jsx',
       Map: 'app/components/Map.jsx'
     },
     extensions: ['', '.js', '.jsx']
