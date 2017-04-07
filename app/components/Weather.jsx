@@ -2,8 +2,8 @@ var React = require('react');
 var WeatherForm = require('WeatherForm');
 var WeatherMessage = require('WeatherMessage');
 var ErrorModal = require('ErrorModal');
-//var openWeatherMap = require('openWeatherMap');
 var darkSkyWeather = require('darkSkyWeather');
+var GMap = require('Map');
 
 var Weather = React.createClass({
   getInitialState: function () {
@@ -23,7 +23,6 @@ var Weather = React.createClass({
 
     darkSkyWeather.getTemp(location, unit).then(function (temp) {
       var u = '';
-
       if (unit === '°F') {
         u = '°C';
       }
@@ -85,6 +84,7 @@ var Weather = React.createClass({
         <div className="three">
           {renderMessage()}
         </div>
+        <GMap/>
         {renderError()}
       </div>
     )

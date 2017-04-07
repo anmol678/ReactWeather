@@ -7,9 +7,9 @@ module.exports = {
   getTemp: function (location, unit) {
     var encodedLocation = encodeURIComponent(location);
     var requestLongLat = `${GOOGLE_GEOCODE_URL}&address=${encodedLocation}`
-    var loc = {};
     var requestWeather = '';
-
+    var loc = {};
+    
     return axios.get(requestLongLat).then(function (res) {
       if (res.data.status === 'OK') {
         loc = res.data.results[0].geometry.location;

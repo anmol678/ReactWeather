@@ -16,6 +16,9 @@ var About = (props) => {
           <a href="https://darksky.net/dev/">Dark Sky</a> - API to fetch weather
         </li>
         <li>
+          <a href="https://developers.google.com/maps/documentation/javascript/">Google Maps APIs</a> - API for the map component
+        </li>
+        <li>
           <a href="http://foundation.zurb.com">Foundation</a> - Front-end framework for styling
         </li>
       </ul>
