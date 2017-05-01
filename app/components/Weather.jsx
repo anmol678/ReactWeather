@@ -9,7 +9,7 @@ var GMap = require('Map');
 var Weather = React.createClass({
   getInitialState: function () {
     return {
-      isLoading: false,
+      isLoading: false
     }
   },
   handleSearch: function (location, unit) {
@@ -24,20 +24,14 @@ var Weather = React.createClass({
       lng: undefined
     });
 
-    googleGeocode.getLoc(location).then(function (latLng) {
-      console.log(latLng);
+    googleGeocode.getLoc(location).then(function (res) {
 
+      var latLng = res.geometry.location;
       darkSkyWeather.getTemp(latLng, unit).then(function (temp) {
-        var u = '';
-        if (unit === '°F') {
-          u = '°C';
-        }
-        else {
-          u = '°F';
-        }
+        var u = (unit === '°F') ? '°C' : '°F';
 
         that.setState({
-          location: location,
+          location: res.formatted_address,
           temp: temp,
           isLoading: false,
           unit: u,
@@ -92,7 +86,7 @@ var Weather = React.createClass({
 
     return (
       <div>
-        <h1 className="text-center page-title">Get Weather</h1>
+        <h2 className="text-center page-title">Get Weather</h2>
         <WeatherForm onSearch={this.handleSearch}/>
         <div className="three">
           {renderMessage()}

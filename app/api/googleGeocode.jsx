@@ -10,8 +10,9 @@ module.exports = {
 
     return axios.get(requestLongLat).then(function (res) {
       if (res.data.status === 'OK') {
-        loc = res.data.results[0].geometry.location;
-        return loc;
+        // loc = res.data.results[0].geometry.location;
+        // return loc;
+        return res.data.results[0];
       } else {
         throw new Error('Unable to fetch location');
       }
